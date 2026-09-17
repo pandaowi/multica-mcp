@@ -15,7 +15,7 @@ The Multica-MCP server container image is designed with a defense-in-depth secur
 ┌────────────────────────────────────────────────────────┐
 │               Build Stage (node:20-alpine)             │
 │   ├── Compiler & Dependencies (npm ci, build)          │
-│   └── Artifact compilation (dist/index.js)             │
+│   └── Artifact compilation (dist/src/index.js)         │
 └──────────────────────────┬─────────────────────────────┘
                            │ Copy artifacts only
 ┌──────────────────────────▼─────────────────────────────┐
