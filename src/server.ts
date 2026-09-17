@@ -123,6 +123,26 @@ export function createServer(client: MulticaClient): McpServer {
         };
       }
 
+      if (
+        command.requiresWorkspace &&
+        context.workspace_id &&
+        "workspace_id" in parsed.data &&
+        parsed.data.workspace_id !== context.workspace_id
+      ) {
+        return {
+          isError: true,
+          content: [
+            {
+              type: "text",
+              text: JSON.stringify({
+                code: "FORBIDDEN",
+                safe_message: "Command workspace does not match execution context",
+              }),
+            },
+          ],
+        };
+      }
+
       if (command.requiresDevice && !context.device_id) {
         return {
           isError: true,

@@ -116,7 +116,7 @@ spec:
         - name: multica-mcp
           image: ghcr.io/pandaowi/multica-mcp:1.0.0
           imagePullPolicy: IfNotPresent
-          command: ["/usr/bin/dumb-init", "--", "node", "dist/index.js"]
+          command: ["/usr/bin/dumb-init", "--", "node", "dist/src/index.js"]
           args: ["--transport", "sse", "--port", "3000", "--host", "0.0.0.0"]
           ports:
             - containerPort: 3000

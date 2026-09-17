@@ -2,6 +2,7 @@ import { randomUUID } from "node:crypto";
 import type { ExecutionContext, ResultEnvelope } from "./types.js";
 
 const SECRET_KEYS = /token|secret|password|authorization|api[-_]?key/i;
+const SECRET_TEXT = /(?:bearer\s+|(?:MULTICA_)?API[_-]?KEY\s*[=:]\s*)[^\s,;"']+/gi;
 
 export function redact(value: unknown): unknown {
   if (Array.isArray(value)) return value.map(redact);
@@ -14,6 +15,10 @@ export function redact(value: unknown): unknown {
     );
   }
   return value;
+}
+
+export function redactText(value: string): string {
+  return value.replace(SECRET_TEXT, "[REDACTED]");
 }
 
 export interface MulticaClientOptions {
@@ -53,6 +58,7 @@ export class MulticaClient {
       accept: "application/json",
       "x-request-id": randomUUID(),
       "x-connection-id": context.connectionId,
+      "x-principal-id": context.principalId,
     };
     if (body) headers["content-type"] = "application/json";
     if (this.options.token) headers.authorization = `Bearer ${this.options.token}`;
@@ -76,17 +82,22 @@ export class MulticaClient {
         payload && typeof payload === "object"
           ? (payload as Record<string, unknown>)
           : {};
+      const safeMessage =
+        typeof error.safe_message === "string"
+          ? redactText(error.safe_message)
+          : "Multica request failed";
       throw new Error(
         JSON.stringify({
           code:
-            error.code ??
-            (response.status === 401
+            typeof error.code === "string"
+              ? error.code
+              : response.status === 401
               ? "AUTH_REQUIRED"
               : response.status === 403
               ? "FORBIDDEN"
-              : "UPSTREAM_ERROR"),
+              : "UPSTREAM_ERROR",
           retryable: response.status >= 500 || response.status === 429,
-          safe_message: error.safe_message ?? "Multica request failed",
+          safe_message: safeMessage,
           request_id: requestId,
         })
       );

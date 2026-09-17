@@ -63,7 +63,7 @@ The Multica-MCP server must allow external AI clients and agents to seamlessly i
 5. **Transports**:
    - **STDIO**: Default transport for desktop IDEs (Cursor, Claude Desktop, VS Code).
    - **SSE (Server-Sent Events) over HTTP**: For remote/dockerized server deployments.
-6. **Packaging**: Bundled with `tsup` / `esbuild` to produce a single-file executable CLI binary (`dist/index.js`) published as `@multica/mcp-server`.
+6. **Packaging**: Compiled with the repository's strict TypeScript build to `dist/src/index.js`, published as `@multica/mcp-server`.
 
 ### 4.2. Layered Architecture Pattern
 The server follows a 4-layer decoupled architecture:

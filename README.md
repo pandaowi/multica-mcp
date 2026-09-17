@@ -26,7 +26,7 @@ npm run build
 npm test
 ```
 
-The compiled server is `dist/index.js`. The build is strict TypeScript and the test suite runs without Multica credentials by using a fake upstream client.
+The compiled server is `dist/src/index.js`. The build is strict TypeScript and the test suite runs without Multica credentials by using a fake upstream client.
 
 ## Configuration
 
@@ -43,7 +43,7 @@ Run it manually:
 ```bash
 MULTICA_SERVER_URL="https://api.multica.dev" \
 MULTICA_API_KEY="<token-from-secure-storage>" \
-node dist/index.js
+node dist/src/index.js
 ```
 
 ## Claude Desktop (stdio)
@@ -55,7 +55,7 @@ Build the project first, then add the server to Claude Desktop's MCP configurati
   "mcpServers": {
     "multica": {
       "command": "node",
-      "args": ["/absolute/path/to/multica-mcp/dist/index.js"],
+      "args": ["/absolute/path/to/multica-mcp/dist/src/index.js"],
       "env": {
         "MULTICA_SERVER_URL": "https://api.multica.dev",
         "MULTICA_API_KEY": "${MULTICA_API_KEY}"
@@ -76,7 +76,7 @@ In Cursor, open MCP settings and add the equivalent server entry to `mcp.json`:
   "mcpServers": {
     "multica": {
       "command": "node",
-      "args": ["/absolute/path/to/multica-mcp/dist/index.js"],
+      "args": ["/absolute/path/to/multica-mcp/dist/src/index.js"],
       "env": {
         "MULTICA_SERVER_URL": "https://api.multica.dev",
         "MULTICA_API_KEY": "<inject-from-secure-storage>"
@@ -137,7 +137,7 @@ Every execution context must identify a `principal_id` and `connection_id`; work
 
 ## Troubleshooting
 
-- **No tools appear:** run `npm run build`, confirm the absolute `dist/index.js` path, and restart the MCP client.
+- **No tools appear:** run `npm run build`, confirm the absolute `dist/src/index.js` path, and restart the MCP client.
 - **`AUTH_REQUIRED`:** provide a valid token through the environment and verify the API URL.
 - **`WORKSPACE_REQUIRED`:** include the explicit workspace ID in the tool context.
 - **`FORBIDDEN`:** verify connection ownership and read-only policy; do not attempt to bypass policy with extra arguments.

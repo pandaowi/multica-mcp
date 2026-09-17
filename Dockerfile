@@ -26,7 +26,7 @@ RUN npm ci --ignore-scripts || npm install
 COPY src/ ./src/
 
 # Compile TypeScript to JavaScript
-RUN npm run build || (mkdir -p dist && echo 'console.log("Multica MCP Server");' > dist/index.js)
+RUN npm run build
 
 # Remove development dependencies to keep production footprint minimal
 RUN npm prune --omit=dev
@@ -82,7 +82,7 @@ HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
   CMD wget --no-verbose --tries=1 --spider http://127.0.0.1:3000/healthz || exit 0
 
 # Use dumb-init as entrypoint to properly handle POSIX signals and reap zombie processes
-ENTRYPOINT ["/usr/bin/dumb-init", "--", "node", "dist/index.js"]
+ENTRYPOINT ["/usr/bin/dumb-init", "--", "node", "dist/src/index.js"]
 
 # Default command: STDIO transport for desktop client integration
 CMD ["--transport", "stdio"]
