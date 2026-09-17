@@ -11,7 +11,7 @@ const issue_assignSchema = z.object({
   to: z.string().optional().describe("Assignee name (member, agent, or squad; fuzzy match)"),
   to_id: z.string().optional().describe("Assignee UUID — member, agent, or squad (mutually exclusive with --to)"),
   unassign: z.string().optional().describe("current assignee"),
-});
+}).strict();
 
 export const issue_assignCommand: CommandDefinition = {
   commandId: "issue.assign",
@@ -32,7 +32,7 @@ const issue_cancel_taskSchema = z.object({
   run_id: z.string().min(1).describe("Positional argument: run_id"),
   issue: z.string().optional().describe("Issue ID/key to scope short run ID prefix resolution"),
   output: z.string().optional().describe("Output format: table or json (default \"json\")"),
-});
+}).strict();
 
 export const issue_cancel_taskCommand: CommandDefinition = {
   commandId: "issue.cancel-task",
@@ -53,7 +53,7 @@ const issue_childrenSchema = z.object({
   id: z.string().min(1).describe("Positional argument: id"),
   full_id: z.string().optional().describe("full UUIDs in table output"),
   output: z.string().optional().describe("Output format: table or json (default \"table\")"),
-});
+}).strict();
 
 export const issue_childrenCommand: CommandDefinition = {
   commandId: "issue.children",
@@ -79,7 +79,7 @@ const issue_comment_addSchema = z.object({
   content_stdin: z.string().optional().describe("comment content from stdin (preserves multi-line content verbatim)"),
   output: z.string().optional().describe("Output format: table or json (default \"json\")"),
   parent: z.string().optional().describe("Parent comment ID to reply under. A comment-triggered agent run must reply under its trigger comment; omitting --parent to post a top-level comment is rejected"),
-});
+}).strict();
 
 export const issue_comment_addCommand: CommandDefinition = {
   commandId: "issue.comment.add",
@@ -98,7 +98,7 @@ const issue_comment_deleteSchema = z.object({
   connection_id: z.string().optional(),
   workspace_id: z.string().optional(),
   comment_id: z.string().min(1).describe("Positional argument: comment_id"),
-});
+}).strict();
 
 export const issue_comment_deleteCommand: CommandDefinition = {
   commandId: "issue.comment.delete",
@@ -128,7 +128,7 @@ const issue_comment_listSchema = z.object({
   summary: z.string().optional().describe("each comment's content to a short preview (sets content_truncated) so you can scan a list without pulling full bodies. Composes with any mode."),
   tail: z.number().optional().describe("Only valid with --thread. Cap reply count to the N most recent replies; the thread root is always included (even with --tail 0). Use --before/--before-id to scroll to older replies."),
   thread: z.string().optional().describe("Comment UUID — return the thread containing this comment (root + every descendant). May be a root or a reply id."),
-});
+}).strict();
 
 export const issue_comment_listCommand: CommandDefinition = {
   commandId: "issue.comment.list",
@@ -148,7 +148,7 @@ const issue_comment_resolveSchema = z.object({
   workspace_id: z.string().optional(),
   comment_id: z.string().min(1).describe("Positional argument: comment_id"),
   output: z.string().optional().describe("Output format: table or json (default \"json\")"),
-});
+}).strict();
 
 export const issue_comment_resolveCommand: CommandDefinition = {
   commandId: "issue.comment.resolve",
@@ -168,7 +168,7 @@ const issue_comment_unresolveSchema = z.object({
   workspace_id: z.string().optional(),
   comment_id: z.string().min(1).describe("Positional argument: comment_id"),
   output: z.string().optional().describe("Output format: table or json (default \"json\")"),
-});
+}).strict();
 
 export const issue_comment_unresolveCommand: CommandDefinition = {
   commandId: "issue.comment.unresolve",
@@ -204,7 +204,7 @@ const issue_createSchema = z.object({
   start_date: z.string().optional().describe("Start date (calendar day, YYYY-MM-DD)"),
   status: z.string().optional().describe("Issue status"),
   title: z.string().optional().describe("Issue title (required)"),
-});
+}).strict();
 
 export const issue_createCommand: CommandDefinition = {
   commandId: "issue.create",
@@ -225,7 +225,7 @@ const issue_getSchema = z.object({
   id: z.string().min(1).describe("Positional argument: id"),
   output: z.string().optional().describe("Output format: table or json (default \"json\")"),
   resolve_properties: z.string().optional().describe("property list   JSON output only: replace the properties id map with the rows issue property list prints (property name and type, option and member names beside the stored ids). Omit for the raw map. No effect on --output table."),
-});
+}).strict();
 
 export const issue_getCommand: CommandDefinition = {
   commandId: "issue.get",
@@ -247,7 +247,7 @@ const issue_label_addSchema = z.object({
   label_id: z.string().min(1).describe("Positional argument: label_id"),
   full_id: z.string().optional().describe("full UUIDs in table output"),
   output: z.string().optional().describe("Output format: table or json (default \"table\")"),
-});
+}).strict();
 
 export const issue_label_addCommand: CommandDefinition = {
   commandId: "issue.label.add",
@@ -268,7 +268,7 @@ const issue_label_listSchema = z.object({
   issue_id: z.string().min(1).describe("Positional argument: issue_id"),
   full_id: z.string().optional().describe("full UUIDs in table output"),
   output: z.string().optional().describe("Output format: table or json (default \"table\")"),
-});
+}).strict();
 
 export const issue_label_listCommand: CommandDefinition = {
   commandId: "issue.label.list",
@@ -290,7 +290,7 @@ const issue_label_removeSchema = z.object({
   label_id: z.string().min(1).describe("Positional argument: label_id"),
   full_id: z.string().optional().describe("full UUIDs in table output"),
   output: z.string().optional().describe("Output format: table or json (default \"table\")"),
-});
+}).strict();
 
 export const issue_label_removeCommand: CommandDefinition = {
   commandId: "issue.label.remove",
@@ -323,7 +323,7 @@ const issue_listSchema = z.object({
   resolve_properties: z.string().optional().describe("property list   JSON output only: replace the properties id map with the rows issue property list prints (property name and type, option and member names beside the stored ids). Omit for the raw map. No effect on --output table."),
   sort: z.string().optional().describe("Sort column: position (default, manual board order), title, created_at, start_date, due_date, priority, or property:<name-or-id> to sort by a custom property (select properties sort by option order)"),
   status: z.string().optional().describe("Filter by status"),
-});
+}).strict();
 
 export const issue_listCommand: CommandDefinition = {
   commandId: "issue.list",
@@ -344,7 +344,7 @@ const issue_metadata_deleteSchema = z.object({
   issue_id: z.string().min(1).describe("Positional argument: issue_id"),
   key: z.string().optional().describe("Metadata key (required)"),
   output: z.string().optional().describe("Output format: table or json (default \"table\")"),
-});
+}).strict();
 
 export const issue_metadata_deleteCommand: CommandDefinition = {
   commandId: "issue.metadata.delete",
@@ -365,7 +365,7 @@ const issue_metadata_getSchema = z.object({
   issue_id: z.string().min(1).describe("Positional argument: issue_id"),
   key: z.string().optional().describe("Metadata key (required)"),
   output: z.string().optional().describe("Output format: table or json (default \"json\")"),
-});
+}).strict();
 
 export const issue_metadata_getCommand: CommandDefinition = {
   commandId: "issue.metadata.get",
@@ -385,7 +385,7 @@ const issue_metadata_listSchema = z.object({
   workspace_id: z.string().optional(),
   issue_id: z.string().min(1).describe("Positional argument: issue_id"),
   output: z.string().optional().describe("Output format: table or json (default \"table\")"),
-});
+}).strict();
 
 export const issue_metadata_listCommand: CommandDefinition = {
   commandId: "issue.metadata.list",
@@ -408,7 +408,7 @@ const issue_metadata_setSchema = z.object({
   output: z.string().optional().describe("Output format: table or json (default \"table\")"),
   type: z.string().optional().describe("Force value type: string, number, or bool (default: auto-infer via JSON parsing)"),
   value: z.string().optional().describe("Metadata value (required)"),
-});
+}).strict();
 
 export const issue_metadata_setCommand: CommandDefinition = {
   commandId: "issue.metadata.set",
@@ -428,7 +428,7 @@ const issue_property_listSchema = z.object({
   workspace_id: z.string().optional(),
   issue_id: z.string().min(1).describe("Positional argument: issue_id"),
   output: z.string().optional().describe("Output format: table or json (default \"table\")"),
-});
+}).strict();
 
 export const issue_property_listCommand: CommandDefinition = {
   commandId: "issue.property.list",
@@ -450,7 +450,7 @@ const issue_property_setSchema = z.object({
   name: z.string().optional().describe("Property name or UUID (required)"),
   output: z.string().optional().describe("Output format: table or json (default \"table\")"),
   value: z.string().optional().describe("Property value (required; see --help for per-type forms)"),
-});
+}).strict();
 
 export const issue_property_setCommand: CommandDefinition = {
   commandId: "issue.property.set",
@@ -471,7 +471,7 @@ const issue_property_unsetSchema = z.object({
   issue_id: z.string().min(1).describe("Positional argument: issue_id"),
   name: z.string().optional().describe("Property name or UUID (required)"),
   output: z.string().optional().describe("Output format: table or json (default \"table\")"),
-});
+}).strict();
 
 export const issue_property_unsetCommand: CommandDefinition = {
   commandId: "issue.property.unset",
@@ -491,7 +491,7 @@ const issue_pull_requestsSchema = z.object({
   workspace_id: z.string().optional(),
   id: z.string().min(1).describe("Positional argument: id"),
   output: z.string().optional().describe("Output format: table or json (default \"table\")"),
-});
+}).strict();
 
 export const issue_pull_requestsCommand: CommandDefinition = {
   commandId: "issue.pull-requests",
@@ -515,7 +515,7 @@ const issue_reorderSchema = z.object({
   bottom: z.string().optional().describe("the issue to the bottom of its status column"),
   output: z.string().optional().describe("Output format: table or json (default \"json\")"),
   top: z.string().optional().describe("the issue to the top of its status column"),
-});
+}).strict();
 
 export const issue_reorderCommand: CommandDefinition = {
   commandId: "issue.reorder",
@@ -535,7 +535,7 @@ const issue_rerunSchema = z.object({
   workspace_id: z.string().optional(),
   id: z.string().min(1).describe("Positional argument: id"),
   output: z.string().optional().describe("Output format: table or json (default \"json\")"),
-});
+}).strict();
 
 export const issue_rerunCommand: CommandDefinition = {
   commandId: "issue.rerun",
@@ -557,7 +557,7 @@ const issue_run_messagesSchema = z.object({
   issue: z.string().optional().describe("Issue ID/key to scope short run ID prefix resolution"),
   output: z.string().optional().describe("Output format: table or json (default \"json\")"),
   since: z.number().optional().describe("Only return messages after this sequence number"),
-});
+}).strict();
 
 export const issue_run_messagesCommand: CommandDefinition = {
   commandId: "issue.run-messages",
@@ -580,7 +580,7 @@ const issue_runsSchema = z.object({
   full_id: z.string().optional().describe("full run UUIDs in table output"),
   output: z.string().optional().describe("Output format: table or json (default \"table\")"),
   siblings: z.string().optional().describe("to this issue's sub-issue family — its parent (or itself, when it has no parent) plus every child of that parent — so you can see whether another run is already working alongside you before starting overlapping code or PR work. Implies --active. Returns a compact per-run row (run, issue, agent, status, started) rather than the full execution-log record. Ordered running-first, newest-first within a status, and capped at 20 rows; when the cap truncates the answer the CLI says so on stderr, so a short list is never mistaken for a complete one. Advisory only: it reports work in flight, it does not reserve or serialise anything."),
-});
+}).strict();
 
 export const issue_runsCommand: CommandDefinition = {
   commandId: "issue.runs",
@@ -602,7 +602,7 @@ const issue_searchSchema = z.object({
   include_closed: z.string().optional().describe("done and cancelled issues"),
   limit: z.number().optional().describe("Maximum number of results to return (default 20)"),
   output: z.string().optional().describe("Output format: table or json (default \"table\")"),
-});
+}).strict();
 
 export const issue_searchCommand: CommandDefinition = {
   commandId: "issue.search",
@@ -624,7 +624,7 @@ const issue_statusSchema = z.object({
   status: z.string().min(1).describe("Positional argument: status"),
   no_start: z.string().optional().describe("status without starting an agent run"),
   output: z.string().optional().describe("Output format: table or json (default \"table\")"),
-});
+}).strict();
 
 export const issue_statusCommand: CommandDefinition = {
   commandId: "issue.status",
@@ -646,7 +646,7 @@ const issue_subscriber_addSchema = z.object({
   output: z.string().optional().describe("Output format: table or json (default \"json\")"),
   user: z.string().optional().describe("Member or agent name to subscribe (fuzzy match; defaults to the caller)"),
   user_id: z.string().optional().describe("Member or agent UUID to subscribe (mutually exclusive with --user)"),
-});
+}).strict();
 
 export const issue_subscriber_addCommand: CommandDefinition = {
   commandId: "issue.subscriber.add",
@@ -666,7 +666,7 @@ const issue_subscriber_listSchema = z.object({
   workspace_id: z.string().optional(),
   issue_id: z.string().min(1).describe("Positional argument: issue_id"),
   output: z.string().optional().describe("Output format: table or json (default \"table\")"),
-});
+}).strict();
 
 export const issue_subscriber_listCommand: CommandDefinition = {
   commandId: "issue.subscriber.list",
@@ -688,7 +688,7 @@ const issue_subscriber_removeSchema = z.object({
   output: z.string().optional().describe("Output format: table or json (default \"json\")"),
   user: z.string().optional().describe("Member or agent name to unsubscribe (fuzzy match; defaults to the caller)"),
   user_id: z.string().optional().describe("Member or agent UUID to unsubscribe (mutually exclusive with --user)"),
-});
+}).strict();
 
 export const issue_subscriber_removeCommand: CommandDefinition = {
   commandId: "issue.subscriber.remove",
@@ -713,7 +713,7 @@ const issue_timelineSchema = z.object({
   output: z.string().optional().describe("Output format: table or json (default \"table\")"),
   since: z.string().optional().describe("Only return entries created after this timestamp (RFC3339)"),
   tail: z.number().optional().describe("Only return the N most recent entries (applied after every other filter)"),
-});
+}).strict();
 
 export const issue_timelineCommand: CommandDefinition = {
   commandId: "issue.timeline",
@@ -749,7 +749,7 @@ const issue_updateSchema = z.object({
   start_date: z.string().optional().describe("New start date (calendar day, YYYY-MM-DD; pass empty string to clear)"),
   status: z.string().optional().describe("New status"),
   title: z.string().optional().describe("New title"),
-});
+}).strict();
 
 export const issue_updateCommand: CommandDefinition = {
   commandId: "issue.update",
@@ -769,7 +769,7 @@ const issue_usageSchema = z.object({
   workspace_id: z.string().optional(),
   issue_id: z.string().min(1).describe("Positional argument: issue_id"),
   output: z.string().optional().describe("Output format: table or json (default \"table\")"),
-});
+}).strict();
 
 export const issue_usageCommand: CommandDefinition = {
   commandId: "issue.usage",

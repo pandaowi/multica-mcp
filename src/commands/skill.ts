@@ -12,7 +12,7 @@ const skill_createSchema = z.object({
   description: z.string().optional().describe("Skill description"),
   name: z.string().optional().describe("Skill name (required)"),
   output: z.string().optional().describe("Output format: table or json (default \"json\")"),
-});
+}).strict();
 
 export const skill_createCommand: CommandDefinition = {
   commandId: "skill.create",
@@ -32,7 +32,7 @@ const skill_deleteSchema = z.object({
   workspace_id: z.string().optional(),
   id: z.string().min(1).describe("Positional argument: id"),
   yes: z.string().optional().describe("confirmation prompt"),
-});
+}).strict();
 
 export const skill_deleteCommand: CommandDefinition = {
   commandId: "skill.delete",
@@ -52,7 +52,7 @@ const skill_files_deleteSchema = z.object({
   workspace_id: z.string().optional(),
   skill_id: z.string().min(1).describe("Positional argument: skill_id"),
   file_id: z.string().min(1).describe("Positional argument: file_id"),
-});
+}).strict();
 
 export const skill_files_deleteCommand: CommandDefinition = {
   commandId: "skill.files.delete",
@@ -73,7 +73,7 @@ const skill_files_listSchema = z.object({
   skill_id: z.string().min(1).describe("Positional argument: skill_id"),
   output: z.string().optional().describe("Output format: table or json (default \"table\")"),
   with_content: z.string().optional().describe("each file's body. Off by default: use it to read a file, not to list them."),
-});
+}).strict();
 
 export const skill_files_listCommand: CommandDefinition = {
   commandId: "skill.files.list",
@@ -97,7 +97,7 @@ const skill_files_upsertSchema = z.object({
   content_stdin: z.string().optional().describe("file content from stdin. Mutually exclusive with --content and --content-file."),
   output: z.string().optional().describe("Output format: table or json (default \"json\")"),
   path: z.string().optional().describe("File path within the skill (required)"),
-});
+}).strict();
 
 export const skill_files_upsertCommand: CommandDefinition = {
   commandId: "skill.files.upsert",
@@ -118,7 +118,7 @@ const skill_getSchema = z.object({
   id: z.string().min(1).describe("Positional argument: id"),
   output: z.string().optional().describe("Output format: table or json (default \"json\")"),
   with_content: z.string().optional().describe("the SKILL.md body and every file body. Off by default: the response grows with the skill and large skills cannot be fetched this way over slow links."),
-});
+}).strict();
 
 export const skill_getCommand: CommandDefinition = {
   commandId: "skill.get",
@@ -140,7 +140,7 @@ const skill_importSchema = z.object({
   on_conflict: z.string().optional().describe("Conflict strategy when a skill with the same name exists: fail, overwrite, rename, or skip (default \"fail\")"),
   output: z.string().optional().describe("Output format: table or json (default \"json\")"),
   url: z.string().optional().describe("URL to import from (clawhub.ai, skills.sh, or github.com). Mutually exclusive with --file."),
-});
+}).strict();
 
 export const skill_importCommand: CommandDefinition = {
   commandId: "skill.import",
@@ -159,7 +159,7 @@ const skill_listSchema = z.object({
   connection_id: z.string().optional(),
   workspace_id: z.string().optional(),
   output: z.string().optional().describe("Output format: table or json (default \"table\")"),
-});
+}).strict();
 
 export const skill_listCommand: CommandDefinition = {
   commandId: "skill.list",
@@ -179,7 +179,7 @@ const skill_refreshSchema = z.object({
   workspace_id: z.string().optional(),
   id: z.string().min(1).describe("Positional argument: id"),
   output: z.string().optional().describe("Output format: table or json (default \"json\")"),
-});
+}).strict();
 
 export const skill_refreshCommand: CommandDefinition = {
   commandId: "skill.refresh",
@@ -199,7 +199,7 @@ const skill_searchSchema = z.object({
   workspace_id: z.string().optional(),
   query: z.string().min(1).describe("Positional argument: query"),
   output: z.string().optional().describe("Output format: table or json (default \"json\")"),
-});
+}).strict();
 
 export const skill_searchCommand: CommandDefinition = {
   commandId: "skill.search",
@@ -225,7 +225,7 @@ const skill_updateSchema = z.object({
   description: z.string().optional().describe("New description"),
   name: z.string().optional().describe("New name"),
   output: z.string().optional().describe("Output format: table or json (default \"json\")"),
-});
+}).strict();
 
 export const skill_updateCommand: CommandDefinition = {
   commandId: "skill.update",

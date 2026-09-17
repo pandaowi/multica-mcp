@@ -35,11 +35,15 @@ test("command descriptions expose risk and workspace requirements", () => {
   assert.equal(daemonStart.requires_device, true);
 });
 
-test("command input schemas validate arguments correctly", () => {
+test("command input schemas validate arguments correctly and reject unknown fields (strict)", () => {
   const issueCreate = getCommand("issue.create");
   assert.ok(issueCreate);
   const valid = issueCreate.inputSchema.safeParse({ title: "Fix bug", description: "Bug description" });
   assert.equal(valid.success, true);
+
+  // Strict check: unknown fields must fail validation
+  const unknownField = issueCreate.inputSchema.safeParse({ title: "Fix bug", unknown_flag: "value" });
+  assert.equal(unknownField.success, false);
 
   const agentArchive = getCommand("agent.archive");
   assert.ok(agentArchive);
@@ -56,12 +60,14 @@ test("MCP server exposes search, describe, and execute tools", async () => {
 test("MCP server enforces device_id context for device-required commands", async () => {
   const client = new MulticaClient({ baseUrl: "https://example.test" });
   const server = createServer(client) as unknown as {
-    _registeredTools: Record<string, { callback: (args: unknown, extra: unknown) => Promise<{ isError?: boolean; content: Array<{ type: string; text: string }> }> }>
+    _registeredTools: Record<string, { handler?: (args: unknown, extra: unknown) => Promise<{ isError?: boolean; content: Array<{ type: string; text: string }> }>; callback?: (args: unknown, extra: unknown) => Promise<{ isError?: boolean; content: Array<{ type: string; text: string }> }> }>
   };
   const executeHandler = server._registeredTools["multica_command_execute"];
   assert.ok(executeHandler);
+  const fn = executeHandler.handler ?? executeHandler.callback;
+  assert.ok(fn);
 
-  const result = await executeHandler.callback({
+  const result = await fn({
     command_id: "daemon.start",
     arguments: {},
     context: {

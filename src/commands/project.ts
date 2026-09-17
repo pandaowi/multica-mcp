@@ -14,7 +14,7 @@ const project_createSchema = z.object({
   start_date: z.string().optional().describe("Start date (calendar day, YYYY-MM-DD)"),
   status: z.string().optional().describe("Project status"),
   title: z.string().optional().describe("Project title (required)"),
-});
+}).strict();
 
 export const project_createCommand: CommandDefinition = {
   commandId: "project.create",
@@ -34,7 +34,7 @@ const project_deleteSchema = z.object({
   workspace_id: z.string().optional(),
   id: z.string().min(1).describe("Positional argument: id"),
   output: z.string().optional().describe("Output format: table or json (default \"json\")"),
-});
+}).strict();
 
 export const project_deleteCommand: CommandDefinition = {
   commandId: "project.delete",
@@ -54,7 +54,7 @@ const project_getSchema = z.object({
   workspace_id: z.string().optional(),
   id: z.string().min(1).describe("Positional argument: id"),
   output: z.string().optional().describe("Output format: table or json (default \"json\")"),
-});
+}).strict();
 
 export const project_getCommand: CommandDefinition = {
   commandId: "project.get",
@@ -75,7 +75,7 @@ const project_listSchema = z.object({
   full_id: z.string().optional().describe("full UUIDs in table output"),
   output: z.string().optional().describe("Output format: table or json (default \"table\")"),
   status: z.string().optional().describe("Filter by status"),
-});
+}).strict();
 
 export const project_listCommand: CommandDefinition = {
   commandId: "project.list",
@@ -104,7 +104,7 @@ const project_resource_addSchema = z.object({
   ref_label: z.string().optional().describe("Shortcut: optional label embedded in resource_ref (only used when --type local_directory)"),
   type: z.string().optional().describe("Resource type (e.g. github_repo, local_directory — see docs) (default \"github_repo\")"),
   url: z.string().optional().describe("Shortcut: the repo URL (only used when --type github_repo)"),
-});
+}).strict();
 
 export const project_resource_addCommand: CommandDefinition = {
   commandId: "project.resource.add",
@@ -125,7 +125,7 @@ const project_resource_listSchema = z.object({
   project_id: z.string().min(1).describe("Positional argument: project_id"),
   full_id: z.string().optional().describe("full UUIDs in table output"),
   output: z.string().optional().describe("Output format: table or json (default \"table\")"),
-});
+}).strict();
 
 export const project_resource_listCommand: CommandDefinition = {
   commandId: "project.resource.list",
@@ -146,7 +146,7 @@ const project_resource_removeSchema = z.object({
   project_id: z.string().min(1).describe("Positional argument: project_id"),
   resource_id: z.string().min(1).describe("Positional argument: resource_id"),
   output: z.string().optional().describe("Output format: table or json (default \"table\")"),
-});
+}).strict();
 
 export const project_resource_removeCommand: CommandDefinition = {
   commandId: "project.resource.remove",
@@ -177,7 +177,7 @@ const project_resource_updateSchema = z.object({
   ref: z.string().optional().describe("Generic JSON resource_ref payload, or a github_repo checkout ref"),
   ref_label: z.string().optional().describe("Shortcut: new label embedded in resource_ref (local_directory)"),
   url: z.string().optional().describe("Shortcut: new repo URL (github_repo)"),
-});
+}).strict();
 
 export const project_resource_updateCommand: CommandDefinition = {
   commandId: "project.resource.update",
@@ -198,7 +198,7 @@ const project_statusSchema = z.object({
   id: z.string().min(1).describe("Positional argument: id"),
   status: z.string().min(1).describe("Positional argument: status"),
   output: z.string().optional().describe("Output format: table or json (default \"table\")"),
-});
+}).strict();
 
 export const project_statusCommand: CommandDefinition = {
   commandId: "project.status",
@@ -225,7 +225,7 @@ const project_updateSchema = z.object({
   start_date: z.string().optional().describe("New start date (calendar day, YYYY-MM-DD; pass empty string to clear)"),
   status: z.string().optional().describe("New status"),
   title: z.string().optional().describe("New title"),
-});
+}).strict();
 
 export const project_updateCommand: CommandDefinition = {
   commandId: "project.update",

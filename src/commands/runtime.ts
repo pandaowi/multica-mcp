@@ -7,7 +7,7 @@ const runtime_activitySchema = z.object({
   workspace_id: z.string().optional(),
   runtime_id: z.string().min(1).describe("Positional argument: runtime_id"),
   output: z.string().optional().describe("Output format: table or json (default \"table\")"),
-});
+}).strict();
 
 export const runtime_activityCommand: CommandDefinition = {
   commandId: "runtime.activity",
@@ -28,7 +28,7 @@ const runtime_deleteSchema = z.object({
   runtime_id: z.string().min(1).describe("Positional argument: runtime_id"),
   cascade: z.string().optional().describe("active agents from the runtime, cancel their runs, then delete the runtime"),
   output: z.string().optional().describe("Output format: table or json (default \"table\")"),
-});
+}).strict();
 
 export const runtime_deleteCommand: CommandDefinition = {
   commandId: "runtime.delete",
@@ -47,7 +47,7 @@ const runtime_listSchema = z.object({
   connection_id: z.string().optional(),
   workspace_id: z.string().optional(),
   output: z.string().optional().describe("Output format: table or json (default \"table\")"),
-});
+}).strict();
 
 export const runtime_listCommand: CommandDefinition = {
   commandId: "runtime.list",
@@ -70,7 +70,7 @@ const runtime_profile_createSchema = z.object({
   display_name: z.string().optional().describe("Human-readable profile name (required)"),
   output: z.string().optional().describe("Output format: table or json (default \"json\")"),
   protocol_family: z.string().optional().describe("Supported backend the profile routes to (required)"),
-});
+}).strict();
 
 export const runtime_profile_createCommand: CommandDefinition = {
   commandId: "runtime.profile.create",
@@ -89,7 +89,7 @@ const runtime_profile_deleteSchema = z.object({
   connection_id: z.string().optional(),
   workspace_id: z.string().optional(),
   profile_id: z.string().min(1).describe("Positional argument: profile_id"),
-});
+}).strict();
 
 export const runtime_profile_deleteCommand: CommandDefinition = {
   commandId: "runtime.profile.delete",
@@ -108,7 +108,7 @@ const runtime_profile_listSchema = z.object({
   connection_id: z.string().optional(),
   workspace_id: z.string().optional(),
   output: z.string().optional().describe("Output format: table or json (default \"table\")"),
-});
+}).strict();
 
 export const runtime_profile_listCommand: CommandDefinition = {
   commandId: "runtime.profile.list",
@@ -128,7 +128,7 @@ const runtime_profile_set_pathSchema = z.object({
   workspace_id: z.string().optional(),
   profile_id: z.string().min(1).describe("Positional argument: profile_id"),
   path: z.string().optional().describe("Absolute path to the executable on this machine (required)"),
-});
+}).strict();
 
 export const runtime_profile_set_pathCommand: CommandDefinition = {
   commandId: "runtime.profile.set-path",
@@ -147,7 +147,7 @@ const runtime_profile_unset_pathSchema = z.object({
   connection_id: z.string().optional(),
   workspace_id: z.string().optional(),
   profile_id: z.string().min(1).describe("Positional argument: profile_id"),
-});
+}).strict();
 
 export const runtime_profile_unset_pathCommand: CommandDefinition = {
   commandId: "runtime.profile.unset-path",
@@ -171,7 +171,7 @@ const runtime_profile_updateSchema = z.object({
   display_name: z.string().optional().describe("New display name"),
   enabled: z.string().optional().describe("or disable the profile (default true)"),
   output: z.string().optional().describe("Output format: table or json (default \"json\")"),
-});
+}).strict();
 
 export const runtime_profile_updateCommand: CommandDefinition = {
   commandId: "runtime.profile.update",
@@ -193,7 +193,7 @@ const runtime_renameSchema = z.object({
   name: z.string().min(1).describe("Positional argument: name"),
   machine: z.string().optional().describe("the name to every runtime on the same machine"),
   output: z.string().optional().describe("Output format: table or json (default \"table\")"),
-});
+}).strict();
 
 export const runtime_renameCommand: CommandDefinition = {
   commandId: "runtime.rename",
@@ -215,7 +215,7 @@ const runtime_updateSchema = z.object({
   output: z.string().optional().describe("Output format: table or json (default \"json\")"),
   target_version: z.string().optional().describe("Target version to update to (required)"),
   wait: z.string().optional().describe("for update to complete (poll until done)"),
-});
+}).strict();
 
 export const runtime_updateCommand: CommandDefinition = {
   commandId: "runtime.update",
@@ -236,7 +236,7 @@ const runtime_usageSchema = z.object({
   runtime_id: z.string().min(1).describe("Positional argument: runtime_id"),
   days: z.number().optional().describe("Number of days of usage data to retrieve (max 365) (default 90)"),
   output: z.string().optional().describe("Output format: table or json (default \"table\")"),
-});
+}).strict();
 
 export const runtime_usageCommand: CommandDefinition = {
   commandId: "runtime.usage",

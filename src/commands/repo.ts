@@ -8,7 +8,7 @@ const repo_addSchema = z.object({
   description: z.string().optional().describe("Optional description; only valid when adding one URL"),
   output: z.string().optional().describe("Output format: table or json (default \"json\")"),
   url: z.string().optional().describe("Repository URL to add (may be repeated)"),
-});
+}).strict();
 
 export const repo_addCommand: CommandDefinition = {
   commandId: "repo.add",
@@ -28,7 +28,7 @@ const repo_checkoutSchema = z.object({
   workspace_id: z.string().optional(),
   url: z.string().min(1).describe("Positional argument: url"),
   ref: z.string().optional().describe("branch, tag, or commit to check out instead of the remote default branch"),
-});
+}).strict();
 
 export const repo_checkoutCommand: CommandDefinition = {
   commandId: "repo.checkout",
@@ -47,7 +47,7 @@ const repo_listSchema = z.object({
   connection_id: z.string().optional(),
   workspace_id: z.string().optional(),
   output: z.string().optional().describe("Output format: table or json (default \"table\")"),
-});
+}).strict();
 
 export const repo_listCommand: CommandDefinition = {
   commandId: "repo.list",
@@ -67,7 +67,7 @@ const repo_removeSchema = z.object({
   workspace_id: z.string().optional(),
   output: z.string().optional().describe("Output format: table or json (default \"json\")"),
   url: z.string().optional().describe("Repository URL to remove (may be repeated)"),
-});
+}).strict();
 
 export const repo_removeCommand: CommandDefinition = {
   commandId: "repo.remove",
