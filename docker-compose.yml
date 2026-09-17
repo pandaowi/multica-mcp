@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  # Multica MCP Server (SSE / HTTP Streaming mode)
+  multica-mcp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runner
+    image: multica-mcp:latest
+    container_name: multica-mcp-server
+    restart: unless-stopped
+    command: ["--transport", "sse", "--port", "3000", "--host", "0.0.0.0"]
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - HOST=0.0.0.0
+      - MULTICA_MCP_TRANSPORT=sse
+      - MULTICA_MCP_MODE=standard
+      - MULTICA_SERVER_URL=${MULTICA_SERVER_URL:-http://host.docker.internal:8080}
+      - MULTICA_API_KEY=${MULTICA_API_KEY}
+      - MULTICA_WORKSPACE_ID=${MULTICA_WORKSPACE_ID}
+      - MULTICA_MCP_LOG_LEVEL=${MULTICA_MCP_LOG_LEVEL:-info}
+      - MULTICA_MCP_RATE_LIMIT_MAX=${MULTICA_MCP_RATE_LIMIT_MAX:-100}
+      - MULTICA_MCP_RATE_LIMIT_WINDOW_MS=${MULTICA_MCP_RATE_LIMIT_WINDOW_MS:-60000}
+    ports:
+      - "${PORT:-3000}:3000"
+    volumes:
+      - mcp_logs:/app/logs
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:3000/healthz"]
+      interval: 30s
+      timeout: 5s
+      start_period: 10s
+      retries: 3
+    security_opt:
+      - no-new-privileges:true
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+        reservations:
+          cpus: '0.1'
+          memory: 128M
+    networks:
+      - multica-network
+
+networks:
+  multica-network:
+    name: multica-network
+    driver: bridge
+
+volumes:
+  mcp_logs:
+    name: multica_mcp_logs
