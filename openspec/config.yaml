@@ -1,0 +1,6 @@
+schema: spec-driven
+context: |
+  Multica MCP platform untuk banyak pengguna melalui agy dan Codex.
+  Prioritas: kemudahan, keamanan, isolasi pengguna/workspace, seluruh CLI versi terpatok.
+  Dokumentasi dalam Bahasa Indonesia; requirement normatif menggunakan SHALL.
+  Status: rancangan, belum implementasi atau klaim kompatibilitas teruji.
