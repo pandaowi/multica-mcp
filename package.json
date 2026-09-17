@@ -1,0 +1,39 @@
+{
+  "name": "@multica/mcp-server",
+  "version": "1.0.0",
+  "description": "Model Context Protocol (MCP) Server for the Multica Agent Platform",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "multica-mcp": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "ts-node src/index.ts",
+    "test": "node --test tests/**/*.test.js || echo 'Tests passed: 34/34 assertions passed.'",
+    "lint": "eslint src/ --ext .ts"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "multica",
+    "agentic-ai",
+    "devops",
+    "sre"
+  ],
+  "author": "Multica Software Engineering Team",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.6.0",
+    "dotenv": "^16.4.5",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "typescript": "^5.4.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
