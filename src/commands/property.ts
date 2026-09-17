@@ -7,7 +7,7 @@ const property_archiveSchema = z.object({
   workspace_id: z.string().optional(),
   id_or_name: z.string().min(1).describe("Positional argument: id_or_name"),
   output: z.string().optional().describe("Output format: table or json (default \"table\")"),
-}).passthrough();
+});
 
 export const property_archiveCommand: CommandDefinition = {
   commandId: "property.archive",
@@ -31,7 +31,7 @@ const property_createSchema = z.object({
   option: z.string().optional().describe("Select option as \"Name\" or \"Name:#rrggbb\" (repeatable; select types only)"),
   output: z.string().optional().describe("Output format: table or json (default \"table\")"),
   type: z.string().optional().describe("Property type: text, number, select, multi_select, date, checkbox, url, actor, multi_actor (required)"),
-}).passthrough();
+});
 
 export const property_createCommand: CommandDefinition = {
   commandId: "property.create",
@@ -51,7 +51,7 @@ const property_getSchema = z.object({
   workspace_id: z.string().optional(),
   id_or_name: z.string().min(1).describe("Positional argument: id_or_name"),
   output: z.string().optional().describe("Output format: table or json (default \"json\")"),
-}).passthrough();
+});
 
 export const property_getCommand: CommandDefinition = {
   commandId: "property.get",
@@ -71,7 +71,7 @@ const property_listSchema = z.object({
   workspace_id: z.string().optional(),
   include_archived: z.string().optional().describe("archived properties"),
   output: z.string().optional().describe("Output format: table or json (default \"table\")"),
-}).passthrough();
+});
 
 export const property_listCommand: CommandDefinition = {
   commandId: "property.list",
@@ -91,7 +91,7 @@ const property_unarchiveSchema = z.object({
   workspace_id: z.string().optional(),
   id_or_name: z.string().min(1).describe("Positional argument: id_or_name"),
   output: z.string().optional().describe("Output format: table or json (default \"table\")"),
-}).passthrough();
+});
 
 export const property_unarchiveCommand: CommandDefinition = {
   commandId: "property.unarchive",
@@ -115,7 +115,7 @@ const property_updateSchema = z.object({
   name: z.string().optional().describe("New property name"),
   option: z.string().optional().describe("Replacement option list as \"Name\" or \"Name:#rrggbb\" (repeatable)"),
   output: z.string().optional().describe("Output format: table or json (default \"table\")"),
-}).passthrough();
+});
 
 export const property_updateCommand: CommandDefinition = {
   commandId: "property.update",

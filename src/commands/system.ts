@@ -6,7 +6,7 @@ const attachment_downloadSchema = z.object({
   connection_id: z.string().optional(),
   workspace_id: z.string().optional(),
   attachment_id: z.string().min(1).describe("Positional argument: attachment_id"),
-}).passthrough();
+});
 
 export const attachment_downloadCommand: CommandDefinition = {
   commandId: "attachment.download",
@@ -26,7 +26,7 @@ const attachment_uploadSchema = z.object({
   workspace_id: z.string().optional(),
   path: z.string().min(1).describe("Positional argument: path"),
   task: z.string().optional().describe("Chat task id to attach to (defaults to MULTICA_TASK_ID)"),
-}).passthrough();
+});
 
 export const attachment_uploadCommand: CommandDefinition = {
   commandId: "attachment.upload",
@@ -45,7 +45,7 @@ const auth_logoutSchema = z.object({
   connection_id: z.string().optional(),
   workspace_id: z.string().optional(),
 
-}).passthrough();
+});
 
 export const auth_logoutCommand: CommandDefinition = {
   commandId: "auth.logout",
@@ -64,7 +64,7 @@ const auth_statusSchema = z.object({
   connection_id: z.string().optional(),
   workspace_id: z.string().optional(),
 
-}).passthrough();
+});
 
 export const auth_statusCommand: CommandDefinition = {
   commandId: "auth.status",
@@ -84,7 +84,7 @@ const config_setSchema = z.object({
   workspace_id: z.string().optional(),
   key: z.string().min(1).describe("Positional argument: key"),
   value: z.string().min(1).describe("Positional argument: value"),
-}).passthrough();
+});
 
 export const config_setCommand: CommandDefinition = {
   commandId: "config.set",
@@ -103,7 +103,7 @@ const config_showSchema = z.object({
   connection_id: z.string().optional(),
   workspace_id: z.string().optional(),
 
-}).passthrough();
+});
 
 export const config_showCommand: CommandDefinition = {
   commandId: "config.show",
@@ -123,7 +123,7 @@ const loginSchema = z.object({
   workspace_id: z.string().optional(),
   callback_host: z.string().optional().describe("Host/IP the OAuth callback URL points at when the browser can reach this CLI directly. For SSH-only machines, use the printed tunnel hint instead."),
   token: z.boolean().optional().describe("string[=\"prompt\"]   Authenticate using a personal access token (mul_... user PAT or mcn_... Cloud Node PAT). Pass --token mul_... / --token mcn_... to supply it inline, or --token alone to be prompted interactively."),
-}).passthrough();
+});
 
 export const loginCommand: CommandDefinition = {
   commandId: "login",
@@ -142,7 +142,7 @@ const setup_cloudSchema = z.object({
   connection_id: z.string().optional(),
   workspace_id: z.string().optional(),
   callback_host: z.string().optional().describe("Host/IP the OAuth callback URL points at when the browser can reach this CLI directly. For SSH-only machines, use the printed tunnel hint instead."),
-}).passthrough();
+});
 
 export const setup_cloudCommand: CommandDefinition = {
   commandId: "setup.cloud",
@@ -165,7 +165,7 @@ const setup_self_hostSchema = z.object({
   frontend_port: z.number().optional().describe("Frontend port (used when --app-url is not set) (default 3000)"),
   port: z.number().optional().describe("Backend server port (used when --server-url is not set) (default 8080)"),
   server_url: z.string().optional().describe("Backend server URL (e.g. https://api.internal.co) (env: MULTICA_SERVER_URL)"),
-}).passthrough();
+});
 
 export const setup_self_hostCommand: CommandDefinition = {
   commandId: "setup.self-host",
@@ -184,7 +184,7 @@ const updateSchema = z.object({
   connection_id: z.string().optional(),
   workspace_id: z.string().optional(),
   download_timeout: z.string().optional().describe("Maximum time to wait for the release archive download (default 2m0s)"),
-}).passthrough();
+});
 
 export const updateCommand: CommandDefinition = {
   commandId: "update",
@@ -203,7 +203,7 @@ const user_profile_getSchema = z.object({
   connection_id: z.string().optional(),
   workspace_id: z.string().optional(),
   output: z.string().optional().describe("Output format: table or json (default \"table\")"),
-}).passthrough();
+});
 
 export const user_profile_getCommand: CommandDefinition = {
   commandId: "user.profile.get",
@@ -227,7 +227,7 @@ const user_profile_updateSchema = z.object({
   description_file: z.string().optional().describe("Read description from a UTF-8 file (preserves multi-line content verbatim; use this on Windows when stdin piping mangles non-ASCII bytes). The path must be inside the current working directory unless --allow-external-file is set."),
   description_stdin: z.string().optional().describe("description from stdin (preserves multi-line content verbatim)"),
   output: z.string().optional().describe("Output format: table or json (default \"table\")"),
-}).passthrough();
+});
 
 export const user_profile_updateCommand: CommandDefinition = {
   commandId: "user.profile.update",
@@ -246,7 +246,7 @@ const versionSchema = z.object({
   connection_id: z.string().optional(),
   workspace_id: z.string().optional(),
   output: z.string().optional().describe("Output format: text or json (default \"text\")"),
-}).passthrough();
+});
 
 export const versionCommand: CommandDefinition = {
   commandId: "version",

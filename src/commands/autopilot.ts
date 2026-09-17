@@ -13,7 +13,7 @@ const autopilot_createSchema = z.object({
   project: z.string().optional().describe("Project ID (optional)"),
   subscriber: z.string().optional().describe("Member subscriber to notify for issues this autopilot creates (name or user ID; repeatable)"),
   title: z.string().optional().describe("Autopilot title (required)"),
-}).passthrough();
+});
 
 export const autopilot_createCommand: CommandDefinition = {
   commandId: "autopilot.create",
@@ -32,7 +32,7 @@ const autopilot_deleteSchema = z.object({
   connection_id: z.string().optional(),
   workspace_id: z.string().optional(),
   id: z.string().min(1).describe("Positional argument: id"),
-}).passthrough();
+});
 
 export const autopilot_deleteCommand: CommandDefinition = {
   commandId: "autopilot.delete",
@@ -53,7 +53,7 @@ const autopilot_getSchema = z.object({
   id: z.string().min(1).describe("Positional argument: id"),
   output: z.string().optional().describe("Output format: table or json (default \"json\")"),
   show_secrets: z.string().optional().describe("live webhook credentials in JSON output (unsafe for logs)"),
-}).passthrough();
+});
 
 export const autopilot_getCommand: CommandDefinition = {
   commandId: "autopilot.get",
@@ -74,7 +74,7 @@ const autopilot_listSchema = z.object({
   full_id: z.string().optional().describe("full UUIDs in table output"),
   output: z.string().optional().describe("Output format: table or json (default \"table\")"),
   status: z.string().optional().describe("Filter by status (active, paused)"),
-}).passthrough();
+});
 
 export const autopilot_listCommand: CommandDefinition = {
   commandId: "autopilot.list",
@@ -96,7 +96,7 @@ const autopilot_runsSchema = z.object({
   limit: z.number().optional().describe("Max number of runs to return (default 20)"),
   offset: z.number().optional().describe("Pagination offset"),
   output: z.string().optional().describe("Output format: table or json (default \"table\")"),
-}).passthrough();
+});
 
 export const autopilot_runsCommand: CommandDefinition = {
   commandId: "autopilot.runs",
@@ -116,7 +116,7 @@ const autopilot_triggerSchema = z.object({
   workspace_id: z.string().optional(),
   id: z.string().min(1).describe("Positional argument: id"),
   output: z.string().optional().describe("Output format: table or json (default \"json\")"),
-}).passthrough();
+});
 
 export const autopilot_triggerCommand: CommandDefinition = {
   commandId: "autopilot.trigger",
@@ -140,7 +140,7 @@ const autopilot_trigger_addSchema = z.object({
   label: z.string().optional().describe("Optional human-readable label"),
   output: z.string().optional().describe("Output format: table or json (default \"json\")"),
   timezone: z.string().optional().describe("IANA timezone (default UTC; schedule only)"),
-}).passthrough();
+});
 
 export const autopilot_trigger_addCommand: CommandDefinition = {
   commandId: "autopilot.trigger-add",
@@ -160,7 +160,7 @@ const autopilot_trigger_deleteSchema = z.object({
   workspace_id: z.string().optional(),
   autopilot_id: z.string().min(1).describe("Positional argument: autopilot_id"),
   trigger_id: z.string().min(1).describe("Positional argument: trigger_id"),
-}).passthrough();
+});
 
 export const autopilot_trigger_deleteCommand: CommandDefinition = {
   commandId: "autopilot.trigger-delete",
@@ -181,7 +181,7 @@ const autopilot_trigger_listSchema = z.object({
   autopilot_id: z.string().min(1).describe("Positional argument: autopilot_id"),
   full_id: z.string().optional().describe("full UUIDs in table output"),
   output: z.string().optional().describe("Output format: table or json (default \"table\")"),
-}).passthrough();
+});
 
 export const autopilot_trigger_listCommand: CommandDefinition = {
   commandId: "autopilot.trigger-list",
@@ -202,7 +202,7 @@ const autopilot_trigger_rotate_urlSchema = z.object({
   autopilot_id: z.string().min(1).describe("Positional argument: autopilot_id"),
   trigger_id: z.string().min(1).describe("Positional argument: trigger_id"),
   output: z.string().optional().describe("Output format: table or json (default \"json\")"),
-}).passthrough();
+});
 
 export const autopilot_trigger_rotate_urlCommand: CommandDefinition = {
   commandId: "autopilot.trigger-rotate-url",
@@ -227,7 +227,7 @@ const autopilot_trigger_updateSchema = z.object({
   label: z.string().optional().describe("New label"),
   output: z.string().optional().describe("Output format: table or json (default \"json\")"),
   timezone: z.string().optional().describe("New IANA timezone"),
-}).passthrough();
+});
 
 export const autopilot_trigger_updateCommand: CommandDefinition = {
   commandId: "autopilot.trigger-update",
@@ -256,7 +256,7 @@ const autopilot_updateSchema = z.object({
   status: z.string().optional().describe("New status (active, paused)"),
   subscriber: z.string().optional().describe("Replace subscribers with this member (name or user ID; repeatable)"),
   title: z.string().optional().describe("New title"),
-}).passthrough();
+});
 
 export const autopilot_updateCommand: CommandDefinition = {
   commandId: "autopilot.update",

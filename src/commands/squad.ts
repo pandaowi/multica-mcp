@@ -9,7 +9,7 @@ const squad_activitySchema = z.object({
   outcome: z.string().min(1).describe("Positional argument: outcome"),
   output: z.string().optional().describe("Output format: table or json (default \"table\")"),
   reason: z.string().optional().describe("Short explanation of the decision"),
-}).passthrough();
+});
 
 export const squad_activityCommand: CommandDefinition = {
   commandId: "squad.activity",
@@ -31,7 +31,7 @@ const squad_createSchema = z.object({
   leader: z.string().optional().describe("Leader agent (name or ID) — required"),
   name: z.string().optional().describe("Squad name (required)"),
   output: z.string().optional().describe("Output format: table or json (default \"json\")"),
-}).passthrough();
+});
 
 export const squad_createCommand: CommandDefinition = {
   commandId: "squad.create",
@@ -51,7 +51,7 @@ const squad_deleteSchema = z.object({
   workspace_id: z.string().optional(),
   squad_id: z.string().min(1).describe("Positional argument: squad_id"),
   output: z.string().optional().describe("Output format: table or json (default \"table\")"),
-}).passthrough();
+});
 
 export const squad_deleteCommand: CommandDefinition = {
   commandId: "squad.delete",
@@ -71,7 +71,7 @@ const squad_getSchema = z.object({
   workspace_id: z.string().optional(),
   squad_id: z.string().min(1).describe("Positional argument: squad_id"),
   output: z.string().optional().describe("Output format: table or json (default \"table\")"),
-}).passthrough();
+});
 
 export const squad_getCommand: CommandDefinition = {
   commandId: "squad.get",
@@ -90,7 +90,7 @@ const squad_listSchema = z.object({
   connection_id: z.string().optional(),
   workspace_id: z.string().optional(),
   output: z.string().optional().describe("Output format: table or json (default \"table\")"),
-}).passthrough();
+});
 
 export const squad_listCommand: CommandDefinition = {
   commandId: "squad.list",
@@ -113,7 +113,7 @@ const squad_member_addSchema = z.object({
   output: z.string().optional().describe("Output format: table or json (default \"json\")"),
   role: z.string().optional().describe("Role in the squad (default \"member\")"),
   type: z.string().optional().describe("Member type: agent or member (default \"agent\")"),
-}).passthrough();
+});
 
 export const squad_member_addCommand: CommandDefinition = {
   commandId: "squad.member.add",
@@ -133,7 +133,7 @@ const squad_member_listSchema = z.object({
   workspace_id: z.string().optional(),
   squad_id: z.string().min(1).describe("Positional argument: squad_id"),
   output: z.string().optional().describe("Output format: table or json (default \"table\")"),
-}).passthrough();
+});
 
 export const squad_member_listCommand: CommandDefinition = {
   commandId: "squad.member.list",
@@ -155,7 +155,7 @@ const squad_member_removeSchema = z.object({
   member_id: z.string().optional().describe("Member or agent ID (required)"),
   output: z.string().optional().describe("Output format: table or json (default \"table\")"),
   type: z.string().optional().describe("Member type: agent or member (default \"agent\")"),
-}).passthrough();
+});
 
 export const squad_member_removeCommand: CommandDefinition = {
   commandId: "squad.member.remove",
@@ -178,7 +178,7 @@ const squad_member_set_roleSchema = z.object({
   member_type: z.string().optional().describe("Member type: agent or member (default \"agent\")"),
   output: z.string().optional().describe("Output format: table or json (default \"json\")"),
   role: z.string().optional().describe("New role in the squad (required)"),
-}).passthrough();
+});
 
 export const squad_member_set_roleCommand: CommandDefinition = {
   commandId: "squad.member.set-role",
@@ -203,7 +203,7 @@ const squad_updateSchema = z.object({
   leader: z.string().optional().describe("New leader agent (name or ID)"),
   name: z.string().optional().describe("New name"),
   output: z.string().optional().describe("Output format: table or json (default \"json\")"),
-}).passthrough();
+});
 
 export const squad_updateCommand: CommandDefinition = {
   commandId: "squad.update",

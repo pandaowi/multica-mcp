@@ -8,7 +8,7 @@ const chat_historySchema = z.object({
   before: z.string().optional().describe("Opaque cursor (a next_cursor from a prior page) to read older messages"),
   limit: z.number().optional().describe("Maximum number of messages to return (the server clamps the range)"),
   output: z.string().optional().describe("Output format: table or json (default \"json\")"),
-}).passthrough();
+});
 
 export const chat_historyCommand: CommandDefinition = {
   commandId: "chat.history",
@@ -29,7 +29,7 @@ const chat_threadSchema = z.object({
   before: z.string().optional().describe("Opaque cursor (a next_cursor from a prior page) to read older messages"),
   limit: z.number().optional().describe("Maximum number of messages to return (the server clamps the range)"),
   output: z.string().optional().describe("Output format: table or json (default \"json\")"),
-}).passthrough();
+});
 
 export const chat_threadCommand: CommandDefinition = {
   commandId: "chat.thread",

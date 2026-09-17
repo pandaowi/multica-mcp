@@ -52,3 +52,25 @@ test("MCP server exposes search, describe, and execute tools", async () => {
   const server = createServer(client);
   assert.ok(server);
 });
+
+test("MCP server enforces device_id context for device-required commands", async () => {
+  const client = new MulticaClient({ baseUrl: "https://example.test" });
+  const server = createServer(client) as unknown as {
+    _registeredTools: Record<string, { callback: (args: unknown, extra: unknown) => Promise<{ isError?: boolean; content: Array<{ type: string; text: string }> }> }>
+  };
+  const executeHandler = server._registeredTools["multica_command_execute"];
+  assert.ok(executeHandler);
+
+  const result = await executeHandler.callback({
+    command_id: "daemon.start",
+    arguments: {},
+    context: {
+      principal_id: "u-123",
+      connection_id: "conn-123"
+    }
+  }, {});
+
+  assert.equal(result.isError, true);
+  const err = JSON.parse(result.content[0].text);
+  assert.equal(err.code, "DEVICE_REQUIRED");
+});

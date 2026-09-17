@@ -7,7 +7,7 @@ const agent_archiveSchema = z.object({
   workspace_id: z.string().optional(),
   id: z.string().min(1).describe("Positional argument: id"),
   output: z.string().optional().describe("Output format: table or json (default \"json\")"),
-}).passthrough();
+});
 
 export const agent_archiveCommand: CommandDefinition = {
   commandId: "agent.archive",
@@ -28,7 +28,7 @@ const agent_avatarSchema = z.object({
   id: z.string().min(1).describe("Positional argument: id"),
   file: z.string().optional().describe("Path to the avatar image file (required)"),
   output: z.string().optional().describe("Output format: table or json (default \"json\")"),
-}).passthrough();
+});
 
 export const agent_avatarCommand: CommandDefinition = {
   commandId: "agent.avatar",
@@ -69,7 +69,7 @@ const agent_copySchema = z.object({
   service_tier: z.string().optional().describe("Override Codex service tier. Not carried across a runtime change unless set here."),
   thinking_level: z.string().optional().describe("Override thinking level. Not carried across a runtime change unless set here."),
   visibility: z.string().optional().describe("Override visibility: private or workspace (legacy; mapped to --permission-mode)"),
-}).passthrough();
+});
 
 export const agent_copyCommand: CommandDefinition = {
   commandId: "agent.copy",
@@ -108,7 +108,7 @@ const agent_createSchema = z.object({
   service_tier: z.string().optional().describe("Codex execution speed: empty = inherit local Codex configuration; default = explicit Standard when supported by the daemon's installed Codex CLI; a catalog tier such as priority = explicit Fast."),
   thinking_level: z.string().optional().describe("Reasoning/effort level for the agent's runtime (e.g. Claude: low|medium|high|xhigh|max; Codex values come from the runtime model catalog). The set is runtime/model-specific; malformed values are rejected server-side and the daemon validates the exact model/level pair. Some runtimes (e.g. hermes) expose no reasoning control and reject every value. Empty = runtime default."),
   visibility: z.string().optional().describe("Visibility: private or workspace (legacy; mapped to --permission-mode. private->private, workspace->public_to+workspace target) (default \"private\")"),
-}).passthrough();
+});
 
 export const agent_createCommand: CommandDefinition = {
   commandId: "agent.create",
@@ -128,7 +128,7 @@ const agent_env_getSchema = z.object({
   workspace_id: z.string().optional(),
   agent_id: z.string().min(1).describe("Positional argument: agent_id"),
   output: z.string().optional().describe("Output format: json or table (default \"json\")"),
-}).passthrough();
+});
 
 export const agent_env_getCommand: CommandDefinition = {
   commandId: "agent.env.get",
@@ -151,7 +151,7 @@ const agent_env_setSchema = z.object({
   custom_env_file: z.string().optional().describe("Read the replacement custom_env JSON object from a file path (suggested mode: 0600). Mutually exclusive with --custom-env and --custom-env-stdin."),
   custom_env_stdin: z.string().optional().describe("the replacement custom_env JSON object from stdin. Keeps secrets out of shell history and 'ps'. Mutually exclusive with --custom-env and --custom-env-file."),
   output: z.string().optional().describe("Output format: json or table (default \"json\")"),
-}).passthrough();
+});
 
 export const agent_env_setCommand: CommandDefinition = {
   commandId: "agent.env.set",
@@ -171,7 +171,7 @@ const agent_getSchema = z.object({
   workspace_id: z.string().optional(),
   id: z.string().min(1).describe("Positional argument: id"),
   output: z.string().optional().describe("Output format: table or json (default \"json\")"),
-}).passthrough();
+});
 
 export const agent_getCommand: CommandDefinition = {
   commandId: "agent.get",
@@ -191,7 +191,7 @@ const agent_listSchema = z.object({
   workspace_id: z.string().optional(),
   include_archived: z.string().optional().describe("archived agents"),
   output: z.string().optional().describe("Output format: table or json (default \"table\")"),
-}).passthrough();
+});
 
 export const agent_listCommand: CommandDefinition = {
   commandId: "agent.list",
@@ -212,7 +212,7 @@ const agent_mcp_addSchema = z.object({
   agent_id: z.string().min(1).describe("Positional argument: agent_id"),
   server_id: z.string().min(1).describe("Positional argument: server_id"),
   output: z.string().optional().describe("Output format: table or json (default \"table\")"),
-}).passthrough();
+});
 
 export const agent_mcp_addCommand: CommandDefinition = {
   commandId: "agent.mcp.add",
@@ -233,7 +233,7 @@ const agent_mcp_disableSchema = z.object({
   agent_id: z.string().min(1).describe("Positional argument: agent_id"),
   server_id: z.string().min(1).describe("Positional argument: server_id"),
   output: z.string().optional().describe("Output format: table or json (default \"table\")"),
-}).passthrough();
+});
 
 export const agent_mcp_disableCommand: CommandDefinition = {
   commandId: "agent.mcp.disable",
@@ -254,7 +254,7 @@ const agent_mcp_enableSchema = z.object({
   agent_id: z.string().min(1).describe("Positional argument: agent_id"),
   server_id: z.string().min(1).describe("Positional argument: server_id"),
   output: z.string().optional().describe("Output format: table or json (default \"table\")"),
-}).passthrough();
+});
 
 export const agent_mcp_enableCommand: CommandDefinition = {
   commandId: "agent.mcp.enable",
@@ -274,7 +274,7 @@ const agent_mcp_listSchema = z.object({
   workspace_id: z.string().optional(),
   agent_id: z.string().min(1).describe("Positional argument: agent_id"),
   output: z.string().optional().describe("Output format: table or json (default \"table\")"),
-}).passthrough();
+});
 
 export const agent_mcp_listCommand: CommandDefinition = {
   commandId: "agent.mcp.list",
@@ -295,7 +295,7 @@ const agent_mcp_removeSchema = z.object({
   agent_id: z.string().min(1).describe("Positional argument: agent_id"),
   server_id: z.string().min(1).describe("Positional argument: server_id"),
   output: z.string().optional().describe("Output format: table or json (default \"table\")"),
-}).passthrough();
+});
 
 export const agent_mcp_removeCommand: CommandDefinition = {
   commandId: "agent.mcp.remove",
@@ -315,7 +315,7 @@ const agent_restoreSchema = z.object({
   workspace_id: z.string().optional(),
   id: z.string().min(1).describe("Positional argument: id"),
   output: z.string().optional().describe("Output format: table or json (default \"json\")"),
-}).passthrough();
+});
 
 export const agent_restoreCommand: CommandDefinition = {
   commandId: "agent.restore",
@@ -336,7 +336,7 @@ const agent_skills_addSchema = z.object({
   agent_id: z.string().min(1).describe("Positional argument: agent_id"),
   output: z.string().optional().describe("Output format: table or json (default \"json\")"),
   skill_ids: z.array(z.string()).optional().describe("Skill IDs to add (comma-separated)"),
-}).passthrough();
+});
 
 export const agent_skills_addCommand: CommandDefinition = {
   commandId: "agent.skills.add",
@@ -356,7 +356,7 @@ const agent_skills_listSchema = z.object({
   workspace_id: z.string().optional(),
   agent_id: z.string().min(1).describe("Positional argument: agent_id"),
   output: z.string().optional().describe("Output format: table or json (default \"table\")"),
-}).passthrough();
+});
 
 export const agent_skills_listCommand: CommandDefinition = {
   commandId: "agent.skills.list",
@@ -377,7 +377,7 @@ const agent_skills_setSchema = z.object({
   agent_id: z.string().min(1).describe("Positional argument: agent_id"),
   output: z.string().optional().describe("Output format: table or json (default \"json\")"),
   skill_ids: z.array(z.string()).optional().describe("Skill IDs to assign (comma-separated)"),
-}).passthrough();
+});
 
 export const agent_skills_setCommand: CommandDefinition = {
   commandId: "agent.skills.set",
@@ -397,7 +397,7 @@ const agent_tasksSchema = z.object({
   workspace_id: z.string().optional(),
   id: z.string().min(1).describe("Positional argument: id"),
   output: z.string().optional().describe("Output format: table or json (default \"table\")"),
-}).passthrough();
+});
 
 export const agent_tasksCommand: CommandDefinition = {
   commandId: "agent.tasks",
@@ -435,7 +435,7 @@ const agent_updateSchema = z.object({
   status: z.string().optional().describe("New status"),
   thinking_level: z.string().optional().describe("New reasoning/effort level for the agent's runtime (e.g. Claude: low|medium|high|xhigh|max; Codex values come from the runtime model catalog). The set is runtime/model-specific; malformed values are rejected server-side and the daemon validates the exact model/level pair. Some runtimes (e.g. hermes) expose no reasoning control and reject every value. Pass an empty string to clear and fall back to the runtime default."),
   visibility: z.string().optional().describe("New visibility: private or workspace (legacy; mapped to --permission-mode)"),
-}).passthrough();
+});
 
 export const agent_updateCommand: CommandDefinition = {
   commandId: "agent.update",

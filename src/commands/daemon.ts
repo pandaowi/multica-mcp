@@ -11,7 +11,7 @@ const daemon_disk_usageSchema = z.object({
   output: z.string().optional().describe("Output format: table or json (default \"table\")"),
   top: z.number().optional().describe("Keep only the largest N entries (per root in --all-profiles mode)"),
   workspaces_root: z.string().optional().describe("Override the workspaces root path (default: same as the daemon)"),
-}).passthrough();
+});
 
 export const daemon_disk_usageCommand: CommandDefinition = {
   commandId: "daemon.disk-usage",
@@ -30,7 +30,7 @@ const daemon_logsSchema = z.object({
   connection_id: z.string().optional(),
   workspace_id: z.string().optional(),
 
-}).passthrough();
+});
 
 export const daemon_logsCommand: CommandDefinition = {
   commandId: "daemon.logs",
@@ -63,7 +63,7 @@ const daemon_restartSchema = z.object({
   runtime_name: z.string().optional().describe("Runtime display name (env: MULTICA_AGENT_RUNTIME_NAME)"),
   workspaces_root: z.string().optional().describe("Base directory for run workspaces (env: MULTICA_WORKSPACES_ROOT)"),
   ws_claim_poll_interval: z.string().optional().describe("Healthy WebSocket claim safety-poll upper bound (env: MULTICA_DAEMON_WS_CLAIM_POLL_INTERVAL)"),
-}).passthrough();
+});
 
 export const daemon_restartCommand: CommandDefinition = {
   commandId: "daemon.restart",
@@ -96,7 +96,7 @@ const daemon_startSchema = z.object({
   runtime_name: z.string().optional().describe("Runtime display name (env: MULTICA_AGENT_RUNTIME_NAME)"),
   workspaces_root: z.string().optional().describe("Base directory for run workspaces (env: MULTICA_WORKSPACES_ROOT)"),
   ws_claim_poll_interval: z.string().optional().describe("Healthy WebSocket claim safety-poll upper bound (env: MULTICA_DAEMON_WS_CLAIM_POLL_INTERVAL)"),
-}).passthrough();
+});
 
 export const daemon_startCommand: CommandDefinition = {
   commandId: "daemon.start",
@@ -115,7 +115,7 @@ const daemon_statusSchema = z.object({
   connection_id: z.string().optional(),
   workspace_id: z.string().optional(),
   output: z.string().optional().describe("Output format: table or json (default \"table\")"),
-}).passthrough();
+});
 
 export const daemon_statusCommand: CommandDefinition = {
   commandId: "daemon.status",
@@ -134,7 +134,7 @@ const daemon_stopSchema = z.object({
   connection_id: z.string().optional(),
   workspace_id: z.string().optional(),
 
-}).passthrough();
+});
 
 export const daemon_stopCommand: CommandDefinition = {
   commandId: "daemon.stop",

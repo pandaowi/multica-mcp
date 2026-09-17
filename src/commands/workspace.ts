@@ -13,7 +13,7 @@ const workspace_createSchema = z.object({
   name: z.string().optional().describe("Workspace name"),
   output: z.string().optional().describe("Output format: table or json (default \"json\")"),
   slug: z.string().optional().describe("Workspace slug"),
-}).passthrough();
+});
 
 export const workspace_createCommand: CommandDefinition = {
   commandId: "workspace.create",
@@ -32,7 +32,7 @@ const workspace_getSchema = z.object({
   connection_id: z.string().optional(),
   workspace_id: z.string().optional(),
   output: z.string().optional().describe("Output format: table or json (default \"json\")"),
-}).passthrough();
+});
 
 export const workspace_getCommand: CommandDefinition = {
   commandId: "workspace.get",
@@ -52,7 +52,7 @@ const workspace_listSchema = z.object({
   workspace_id: z.string().optional(),
   full_id: z.string().optional().describe("full UUIDs in table output"),
   output: z.string().optional().describe("Output format: table or json (default \"table\")"),
-}).passthrough();
+});
 
 export const workspace_listCommand: CommandDefinition = {
   commandId: "workspace.list",
@@ -75,7 +75,7 @@ const workspace_mcp_addSchema = z.object({
   server_config: z.string().optional().describe("Server entry as JSON (avoid: lands in shell history)"),
   server_config_file: z.string().optional().describe("Read the server entry JSON from a file"),
   server_config_stdin: z.string().optional().describe("the server entry JSON from stdin"),
-}).passthrough();
+});
 
 export const workspace_mcp_addCommand: CommandDefinition = {
   commandId: "workspace.mcp.add",
@@ -94,7 +94,7 @@ const workspace_mcp_listSchema = z.object({
   connection_id: z.string().optional(),
   workspace_id: z.string().optional(),
   output: z.string().optional().describe("Output format: table or json (default \"json\")"),
-}).passthrough();
+});
 
 export const workspace_mcp_listCommand: CommandDefinition = {
   commandId: "workspace.mcp.list",
@@ -114,7 +114,7 @@ const workspace_mcp_removeSchema = z.object({
   workspace_id: z.string().optional(),
   server_id: z.string().min(1).describe("Positional argument: server_id"),
   output: z.string().optional().describe("Output format: table or json (default \"json\")"),
-}).passthrough();
+});
 
 export const workspace_mcp_removeCommand: CommandDefinition = {
   commandId: "workspace.mcp.remove",
@@ -138,7 +138,7 @@ const workspace_mcp_updateSchema = z.object({
   server_config: z.string().optional().describe("Replacement server entry as JSON (avoid: lands in shell history)"),
   server_config_file: z.string().optional().describe("Read the replacement server entry JSON from a file"),
   server_config_stdin: z.string().optional().describe("the replacement server entry JSON from stdin"),
-}).passthrough();
+});
 
 export const workspace_mcp_updateCommand: CommandDefinition = {
   commandId: "workspace.mcp.update",
@@ -159,7 +159,7 @@ const workspace_member_inviteSchema = z.object({
   email: z.string().min(1).describe("Positional argument: email"),
   output: z.string().optional().describe("Output format: table or json (default \"table\")"),
   role: z.string().optional().describe("Member role to grant: member or admin (owner is not allowed) (default \"member\")"),
-}).passthrough();
+});
 
 export const workspace_member_inviteCommand: CommandDefinition = {
   commandId: "workspace.member.invite",
@@ -178,7 +178,7 @@ const workspace_member_listSchema = z.object({
   connection_id: z.string().optional(),
   workspace_id: z.string().optional(),
   output: z.string().optional().describe("Output format: table or json (default \"table\")"),
-}).passthrough();
+});
 
 export const workspace_member_listCommand: CommandDefinition = {
   commandId: "workspace.member.list",
@@ -197,7 +197,7 @@ const workspace_switchSchema = z.object({
   connection_id: z.string().optional(),
   workspace_id: z.string().optional(),
 
-}).passthrough();
+});
 
 export const workspace_switchCommand: CommandDefinition = {
   commandId: "workspace.switch",
@@ -222,7 +222,7 @@ const workspace_updateSchema = z.object({
   issue_prefix: z.string().optional().describe("New issue prefix (uppercased server-side)"),
   name: z.string().optional().describe("New workspace name"),
   output: z.string().optional().describe("Output format: table or json (default \"json\")"),
-}).passthrough();
+});
 
 export const workspace_updateCommand: CommandDefinition = {
   commandId: "workspace.update",
