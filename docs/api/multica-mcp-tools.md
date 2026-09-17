@@ -2,13 +2,13 @@
 
 - **Version**: 1.0.0
 - **Status**: Stable
-- **Maintainer**: Architect Team
+- **Maintainer**: Software Engineering Team
 
 ---
 
 ## 1. Overview
 
-This document specifies the exact JSON-RPC 2.0 tool interface contracts exposed by the Multica-MCP server, input/output schemas (defined using `zod`), error response codes, and envelope structures.
+This document specifies the JSON-RPC 2.0 tool interface contracts exposed by the Multica-MCP server, input/output schemas (defined using `zod`), error response codes, and envelope structures.
 
 ---
 
@@ -43,9 +43,25 @@ When an error occurs:
 
 ---
 
-## 3. Tool Specifications
+## 3. Core MCP Surface
 
-### 3.1. Issue Management Tools
+The server exposes a verified command registry through three discovery/dispatch tools and one resource per registered command. `multica_command_execute` accepts only a registered `command_id`; it never accepts raw shell strings or arbitrary argv.
+
+### Core Discovery & Dispatch Tools:
+
+- **`multica_command_search({ query? })`**: Returns command IDs, titles, descriptions, and risk classes to support context-bounded tool discovery.
+- **`multica_command_describe({ command_id })`**: Returns the command's risk class, scope requirements, and Zod-derived JSON input schema.
+- **`multica_command_execute({ command_id, arguments, context })`**: Validates arguments, requires explicit workspace scope where applicable, enforces read-only policy, and returns a sanitized result envelope.
+
+`context` contains `principal_id`, `connection_id`, optional `workspace_id`/`device_id`, and an optional `read_only` policy. The server-side connection maps to the Multica credential; credentials are never accepted as tool arguments.
+
+Resources use `multica://commands/{command_id}` and contain the same command description used by discovery.
+
+---
+
+## 4. Entity Management Tool Specifications
+
+### 4.1. Issue Management Tools
 
 #### `multica_issue_get`
 Retrieves a full issue record by UUID or issue identifier (e.g. `SWD-2`).
@@ -54,24 +70,6 @@ Retrieves a full issue record by UUID or issue identifier (e.g. `SWD-2`).
   ```typescript
   {
     issue_id: z.string().describe("The UUID or human-readable identifier (e.g. 'SWD-2') of the issue.")
-  }
-  ```
-- **Output Data Schema**:
-  ```typescript
-  {
-    id: string;
-    identifier: string;
-    project_id: string;
-    title: string;
-    description: string;
-    status: "todo" | "in_progress" | "in_review" | "done" | "blocked" | "backlog" | "cancelled";
-    priority: "none" | "low" | "medium" | "high" | "urgent";
-    assignee_id: string | null;
-    assignee_type: "agent" | "squad" | "member" | null;
-    parent_issue_id: string | null;
-    stage: number | null;
-    created_at: string;
-    updated_at: string;
   }
   ```
 
@@ -121,7 +119,7 @@ Transitions an issue status.
 
 ---
 
-### 3.2. Comment & Collaboration Tools
+### 4.2. Comment & Collaboration Tools
 
 #### `multica_issue_comment_list`
 Reads comment threads with summary or deep thread inspection.
@@ -152,48 +150,10 @@ Posts a comment or thread reply. Agent mention guards are enforced automatically
 
 ---
 
-### 3.3. Squad & Agent Exploration Tools
+### 4.3. Squad & Agent Exploration Tools
 
 #### `multica_agent_list`
 Lists agents in the workspace. Secrets (`custom_env`, `mcp_config`) are strictly redacted.
 
-- **Output Data**:
-  ```typescript
-  Array<{
-    id: string;
-    name: string;
-    description: string;
-    model: string;
-    skills: Array<{ id: string; name: string; description: string }>;
-    has_custom_env: boolean;
-    custom_env_key_count: number;
-    max_concurrent_tasks: number;
-    status: "idle" | "working";
-  }>
-  ```
-
 #### `multica_squad_get`
 Retrieves squad composition and leader routing rules.
-
-- **Input Parameters**:
-  ```typescript
-  {
-    squad_id: z.string().describe("Squad UUID")
-  }
-  ```
-- **Output Data**:
-  ```typescript
-  {
-    id: string;
-    name: string;
-    description: string;
-    instructions: string;
-    leader_id: string;
-    member_count: number;
-    members: Array<{
-      member_id: string;
-      member_type: "agent" | "member";
-      role: string;
-    }>;
-  }
-  ```

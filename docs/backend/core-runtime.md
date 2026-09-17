@@ -51,16 +51,14 @@ The **Multica-MCP Backend Runtime** connects AI developer tools and external age
 
 ---
 
-## 3. Core Registry & Tool Handlers
+## 3. Core Runtime Implementation Details
 
-### 3.1. Command Search & Discovery (`multica_command_search`)
-Enables dynamic discovery of supported Multica commands and tools with category and permission scope filters.
+The implementation is split into a registry, policy-aware MCP surface, and upstream client:
+- **Registry (`src/registry.ts`)**: Owns canonical command IDs, Zod schemas, risk classifications (`read_only`, `workspace_read`, `workspace_write`), and workspace requirements.
+- **Server (`src/server.ts`)**: Validates and authorizes requests before dispatch. Enforces read-only connection policies and workspace presence.
+- **Client (`src/client.ts`)**: The only upstream boundary to Multica REST API. Sends connection ID plus generated request ID; upstream tokens are read from process configuration and never from model inputs.
 
-### 3.2. Command Description & Schema Introspection (`multica_command_describe`)
-Returns the complete JSON Schema definition, parameter constraints, risk tier, and example payloads for any registered command.
-
-### 3.3. Typed Execution Dispatcher (`multica_command_execute`)
-Executes target commands against upstream Multica REST endpoints with full parameter validation and audit metadata attachment.
+The initial adapter set covers workspace listing, agent reads, and agent creation. Additional CLI/API adapters can be added to `src/registry.ts` with a typed schema and risk classification before being exposed. Raw shell execution is intentionally blocked.
 
 ---
 
@@ -75,6 +73,6 @@ Executes target commands against upstream Multica REST endpoints with full param
 ## 5. Verification & Testing
 
 The backend runtime includes 100% test coverage for:
-- Registry registration and schema validation
-- Upstream `MulticaClient` connection context and timeout handling
-- Secret redaction and error envelope formatting
+- Registry registration and schema validation (`test/registry.test.ts`)
+- Upstream `MulticaClient` connection context, request headers, and timeout handling (`test/client.test.ts`)
+- Secret redaction and safe error envelope formatting
