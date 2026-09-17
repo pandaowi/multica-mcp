@@ -4,11 +4,12 @@ import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { InMemoryTransport } from "@modelcontextprotocol/sdk/inMemory.js";
 import { createServer } from "../src/server.ts";
 import { MulticaClient } from "../src/client.ts";
+import { registry } from "../src/registry.ts";
 
 const context = { principal_id: "principal-a", connection_id: "connection-a", workspace_id: "workspace-a" };
 const commandArgs: Record<string, Record<string, unknown>> = {
   "workspace.list": { connection_id: "connection-a" },
-  "agent.get": { connection_id: "connection-a", workspace_id: "workspace-a", agent_id: "agent-a" },
+  "agent.get": { connection_id: "connection-a", workspace_id: "workspace-a", id: "agent-a" },
   "agent.create": { connection_id: "connection-a", workspace_id: "workspace-a", name: "agent-a", runtime_id: "runtime-a" }
 };
 
@@ -29,7 +30,7 @@ test("MCP discovery exposes every registered command and resource", async () => 
   const tools = await client.listTools();
   assert.deepEqual(tools.tools.map((tool) => tool.name), ["multica_command_search", "multica_command_describe", "multica_command_execute"]);
   const resources = await client.listResources();
-  assert.equal(resources.resources.length, 3);
+  assert.equal(resources.resources.length, registry.length);
   await client.close();
   await server.close();
 });
@@ -64,7 +65,7 @@ test("MCP dispatcher blocks invalid, unknown, read-only, and cross-workspace req
   assert.equal(unknown.isError, true);
   assert.match(String((unknown.content[0] as { text: string }).text), /NOT_FOUND/);
 
-  const invalid = await client.callTool({ name: "multica_command_execute", arguments: { command_id: "agent.create", arguments: { ...commandArgs["agent.create"], name: "" }, context } });
+  const invalid = await client.callTool({ name: "multica_command_execute", arguments: { command_id: "agent.create", arguments: { ...commandArgs["agent.create"], max_concurrent_tasks: "invalid" }, context } });
   assert.equal(invalid.isError, true);
   assert.match(String((invalid.content[0] as { text: string }).text), /VALIDATION_ERROR/);
 
