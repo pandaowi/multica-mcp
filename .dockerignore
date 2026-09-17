@@ -1,0 +1,49 @@
+# Git & GitHub
+.git
+.github
+.gitignore
+
+# Node & Build artifacts
+node_modules
+dist
+build
+*.tsbuildinfo
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Test & Coverage
+coverage
+.nyc_output
+*.test.ts
+*.spec.ts
+__tests__
+
+# Environment & Secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.cert
+
+# Documentation & Specs
+docs
+openspec
+*.md
+!README.md
+
+# Agent & Workspace Metadata
+.agents
+.multica
+.gemini
+AGENTS.md
+
+# Temporary & OS files
+.DS_Store
+Thumbs.db
+tmp
+temp
+logs
+*.log

@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Multica MCP Client Configuration Reference",
+  "description": "Example client configuration snippets for Claude Desktop, Cursor, and other MCP clients.",
+  "claude_desktop": {
+    "mcpServers": {
+      "multica-local-npx": {
+        "command": "npx",
+        "args": ["-y", "@multica/mcp-server", "--transport", "stdio"],
+        "env": {
+          "MULTICA_SERVER_URL": "https://api.multica.ai",
+          "MULTICA_API_KEY": "<YOUR_MULTICA_API_KEY>",
+          "MULTICA_WORKSPACE_ID": "<YOUR_WORKSPACE_UUID>",
+          "MULTICA_MCP_MODE": "standard"
+        }
+      },
+      "multica-docker-stdio": {
+        "command": "docker",
+        "args": [
+          "run",
+          "-i",
+          "--rm",
+          "-e", "MULTICA_SERVER_URL=https://api.multica.ai",
+          "-e", "MULTICA_API_KEY=<YOUR_MULTICA_API_KEY>",
+          "-e", "MULTICA_WORKSPACE_ID=<YOUR_WORKSPACE_UUID>",
+          "-e", "MULTICA_MCP_MODE=standard",
+          "ghcr.io/pandaowi/multica-mcp:latest",
+          "--transport", "stdio"
+        ]
+      }
+    }
+  },
+  "cursor_or_remote_sse": {
+    "mcpServers": {
+      "multica-sse": {
+        "url": "https://mcp.yourdomain.com/sse",
+        "headers": {
+          "Authorization": "Bearer <YOUR_BEARER_TOKEN>"
+        }
+      }
+    }
+  }
+}
