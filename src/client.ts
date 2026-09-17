@@ -12,7 +12,7 @@ export class MulticaClient {
   private readonly fetchImpl: typeof fetch;
   constructor(private readonly options: MulticaClientOptions) { this.fetchImpl = options.fetchImpl ?? fetch; }
   async execute(command: { method: string; path: string }, args: Record<string, unknown>, context: ExecutionContext): Promise<ResultEnvelope> {
-    const query = command.method === "GET" ? `?${new URLSearchParams(Object.entries(args).filter(([, value]) => value !== undefined).map(([key, value]) => [key, String(value)]))}` : "";
+    const query = command.method === "GET" ? `?${new URLSearchParams(Object.entries(args).filter(([, value]) => value !== undefined).map(([key, value]) => [key, String(value)] as [string, string]))}` : "";
     const url = new URL(`${command.path}${query}`, this.options.baseUrl.endsWith("/") ? this.options.baseUrl : `${this.options.baseUrl}/`);
     const body = command.method === "GET" ? undefined : JSON.stringify(redact(args));
     const headers: Record<string, string> = { accept: "application/json", "x-request-id": randomUUID(), "x-connection-id": context.connectionId };
