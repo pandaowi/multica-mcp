@@ -1,0 +1,252 @@
+openapi: 3.1.0
+info:
+  title: Multica MCP Gateway API
+  description: OpenAPI 3.1 Specification for the Multica platform endpoints integrated by Multica-MCP.
+  version: 1.0.0
+servers:
+  - url: https://api.multica.ai/v1
+    description: Multica Cloud Production Server
+  - url: http://localhost:8080/v1
+    description: Local Multica Daemon Server
+
+paths:
+  /issues:
+    get:
+      summary: List Issues
+      operationId: listIssues
+      parameters:
+        - name: project_id
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [todo, in_progress, in_review, done, blocked, backlog, cancelled]
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 20
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            default: 0
+      responses:
+        '200':
+          description: List of issues
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IssueListResponse'
+    post:
+      summary: Create Issue
+      operationId: createIssue
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateIssueRequest'
+      responses:
+        '201':
+          description: Issue created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Issue'
+
+  /issues/{id}:
+    get:
+      summary: Get Issue Details
+      operationId: getIssue
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Issue details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Issue'
+
+  /issues/{id}/comments:
+    get:
+      summary: List Issue Comments
+      operationId: listIssueComments
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: roots_only
+          in: query
+          schema:
+            type: boolean
+        - name: thread
+          in: query
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Comment list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Comment'
+    post:
+      summary: Add Issue Comment
+      operationId: addIssueComment
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddCommentRequest'
+      responses:
+        '201':
+          description: Comment created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+
+components:
+  schemas:
+    Issue:
+      type: object
+      required:
+        - id
+        - title
+        - status
+      properties:
+        id:
+          type: string
+          format: uuid
+        identifier:
+          type: string
+          example: "SWD-2"
+        project_id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        description:
+          type: string
+        status:
+          type: string
+          enum: [todo, in_progress, in_review, done, blocked, backlog, cancelled]
+        priority:
+          type: string
+          enum: [none, low, medium, high, urgent]
+        assignee_id:
+          type: string
+          format: uuid
+          nullable: true
+        assignee_type:
+          type: string
+          enum: [agent, squad, member]
+          nullable: true
+        parent_issue_id:
+          type: string
+          format: uuid
+          nullable: true
+        stage:
+          type: integer
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+
+    IssueListResponse:
+      type: object
+      properties:
+        issues:
+          type: array
+          items:
+            $ref: '#/components/schemas/Issue'
+        total:
+          type: integer
+        limit:
+          type: integer
+        offset:
+          type: integer
+
+    CreateIssueRequest:
+      type: object
+      required:
+        - title
+        - description
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        project_id:
+          type: string
+          format: uuid
+        parent_issue_id:
+          type: string
+          format: uuid
+        stage:
+          type: integer
+        priority:
+          type: string
+          enum: [none, low, medium, high, urgent]
+        assignee_id:
+          type: string
+          format: uuid
+
+    Comment:
+      type: object
+      required:
+        - id
+        - content
+        - author_id
+      properties:
+        id:
+          type: string
+          format: uuid
+        parent_id:
+          type: string
+          format: uuid
+          nullable: true
+        author_id:
+          type: string
+          format: uuid
+        author_type:
+          type: string
+          enum: [agent, member]
+        content:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+
+    AddCommentRequest:
+      type: object
+      required:
+        - content
+      properties:
+        content:
+          type: string
+        parent_id:
+          type: string
+          format: uuid
