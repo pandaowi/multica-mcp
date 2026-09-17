@@ -157,3 +157,33 @@ Lists agents in the workspace. Secrets (`custom_env`, `mcp_config`) are strictly
 
 #### `multica_squad_get`
 Retrieves squad composition and leader routing rules.
+
+---
+
+## 5. Full Multica CLI Command Registry (155 Commands)
+
+The server integrates the full catalog of **155 canonical Multica CLI subcommands** across 21 families into the typed MCP registry (`src/registry.ts` and `src/commands/*.ts`), exposed through discovery (`multica_command_search`, `multica_command_describe`), meta-dispatcher (`multica_command_execute`), and URI resources (`multica://commands/{command_id}`).
+
+### Registered Command Families:
+1. **`agent`** (19 commands): `agent.archive`, `agent.avatar`, `agent.copy`, `agent.create`, `agent.env.get`, `agent.env.set`, `agent.get`, `agent.list`, `agent.mcp.add`, `agent.mcp.disable`, `agent.mcp.enable`, `agent.mcp.list`, `agent.mcp.remove`, `agent.restore`, `agent.skills.add`, `agent.skills.list`, `agent.skills.set`, `agent.tasks`, `agent.update`
+2. **`autopilot`** (12 commands): `autopilot.create`, `autopilot.delete`, `autopilot.get`, `autopilot.list`, `autopilot.runs`, `autopilot.trigger`, `autopilot.trigger.add`, `autopilot.trigger.delete`, `autopilot.trigger.list`, `autopilot.trigger.rotate_url`, `autopilot.trigger.update`, `autopilot.update`
+3. **`chat`** (2 commands): `chat.history`, `chat.thread`
+4. **`issue`** (34 commands): `issue.assign`, `issue.cancel_task`, `issue.children`, `issue.comment.add`, `issue.comment.delete`, `issue.comment.list`, `issue.comment.resolve`, `issue.comment.unresolve`, `issue.create`, `issue.get`, `issue.label.add`, `issue.label.list`, `issue.label.remove`, `issue.list`, `issue.metadata.delete`, `issue.metadata.get`, `issue.metadata.list`, `issue.metadata.set`, `issue.property.list`, `issue.property.set`, `issue.property.unset`, `issue.pull_requests`, `issue.reorder`, `issue.rerun`, `issue.run_messages`, `issue.runs`, `issue.search`, `issue.status`, `issue.subscriber.add`, `issue.subscriber.list`, `issue.subscriber.remove`, `issue.timeline`, `issue.update`, `issue.usage`
+5. **`label`** (5 commands): `label.create`, `label.delete`, `label.get`, `label.list`, `label.update`
+6. **`project`** (10 commands): `project.create`, `project.delete`, `project.get`, `project.list`, `project.resource.add`, `project.resource.list`, `project.resource.remove`, `project.resource.update`, `project.status`, `project.update`
+7. **`property`** (6 commands): `property.archive`, `property.create`, `property.get`, `property.list`, `property.unarchive`, `property.update`
+8. **`repo`** (4 commands): `repo.add`, `repo.checkout`, `repo.list`, `repo.remove`
+9. **`skill`** (11 commands): `skill.create`, `skill.delete`, `skill.files.delete`, `skill.files.list`, `skill.files.upsert`, `skill.get`, `skill.import`, `skill.list`, `skill.refresh`, `skill.search`, `skill.update`
+10. **`squad`** (10 commands): `squad.activity`, `squad.create`, `squad.delete`, `squad.get`, `squad.list`, `squad.member.add`, `squad.member.list`, `squad.member.remove`, `squad.member.set_role`, `squad.update`
+11. **`workspace`** (11 commands): `workspace.create`, `workspace.get`, `workspace.list`, `workspace.mcp.add`, `workspace.mcp.list`, `workspace.mcp.remove`, `workspace.mcp.update`, `workspace.member.invite`, `workspace.member.list`, `workspace.switch`, `workspace.update`
+12. **`daemon`** (6 commands): `daemon.disk_usage`, `daemon.logs`, `daemon.restart`, `daemon.start`, `daemon.status`, `daemon.stop`
+13. **`runtime`** (12 commands): `runtime.activity`, `runtime.delete`, `runtime.list`, `runtime.profile.create`, `runtime.profile.delete`, `runtime.profile.list`, `runtime.profile.set_path`, `runtime.profile.unset_path`, `runtime.profile.update`, `runtime.rename`, `runtime.update`, `runtime.usage`
+14. **`attachment`** (2 commands): `attachment.download`, `attachment.upload`
+15. **`auth`** (2 commands): `auth.logout`, `auth.status`
+16. **`config`** (2 commands): `config.set`, `config.show`
+17. **`login`** (1 command): `login`
+18. **`setup`** (2 commands): `setup.cloud`, `setup.self_host`
+19. **`update`** (1 command): `update`
+20. **`user`** (2 commands): `user.profile.get`, `user.profile.update`
+21. **`version`** (1 command): `version`
+
